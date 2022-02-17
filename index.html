@@ -1,15 +1,75 @@
 <html>
-
 <head>
-    <title>Images anti-ocr </title>
-    <meta charset="utf-8" />
-    <script type="text/javascript" src="./main.js"></script>
-    <style>
-    </style>
+<title>anti-ocr</title>
+<meta charset="utf-8" /> 
+<script type="text/javascript" src="./main.js"></script>
 </head>
-
 <body>
+<div>文字生成反ocr图片 <a href="https://github.com/yuzu233/anti-ocr">Github</a> | <a href="https://twitter.com/yuzuqwq">Author's Twitter</a></div> 
+<div style="float: left"><textarea id="txt"
+    style="width: 400px; height: 500px;">這是一段測試文本～
+哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵喵</textarea></div>
+<div>
+<table>
+    <tr>
+        <td><label>字体大小:</label><input size="4" id='fontSize' value='16' />px</td>
+    </tr>
+    <tr>
+        <td><label>字体精细:</label><select id="fontWeight">
+            <option value="normal">正常</option>
+            <option value="bold">粗</option>
+        </select></td>
+    </tr>
+    <tr>
+        <td><label>每行显示:</label><input size="4" id='len' value="40" />个字</td>
+    </tr>
+    <tr>
+        <td><p>文字颜色:<span id="fontcolor"></span><canvas id="fontcolor_c" width="20" height="20"></p></canvas>
 
+        <p>Red： <input type="range" id="fontcolor_red" min="0" max="255" value="0"
+            onchange="changeColor('fontcolor');" /></p>
+        <p>Green：<input type="range" id="fontcolor_green" min="0" max="255"
+            value="0" onchange="changeColor('fontcolor');" /></p>
+        <p>Blue： <input type="range" id="fontcolor_blue" min="0" max="255" value="0"
+            onchange="changeColor('fontcolor');" /></p></td>
+    </tr>
+        <td><p>背景颜色:<span id="backcolor"></span><canvas id="backcolor_c" width="20" height="20"></p></canvas>
+
+        <p>Red： <input type="range" id="backcolor_red" min="0" max="255" value="255"
+            onchange="changeColor('backcolor');" /></p>
+        <p>Green：<input type="range" id="backcolor_green" min="0" max="255"
+            value="255" onchange="changeColor('backcolor');" /></p>
+        <p>Blue： <input type="range" id="backcolor_blue" min="0" max="255" value="255"
+            onchange="changeColor('backcolor');" /></p></td>
+    </tr>
+    <tr>
+        <td><label>線條粗細:</label><input size="4" id='lineSize' value='1' /></td>
+    </tr>
+    <tr>
+        <td><label>畫點大小:</label><input size="4" id='pointSize' value='1' /></td>
+    </tr>
+    <tr>
+        <td><label>畫點密度:</label><input type="range" id="points" min="0" max="20" value="1" /></td>
+    </tr>
+    <tr>
+    <tr>
+        <td>
+        <button onclick=
+    textToImg();;
+>生成图片</button>
+        </td>
+    </tr>
+</table>
+</div>
+<canvas id="canvas" style="display:block" width="0" height="0"></canvas>
+<div><img id="img"
+    style="border: 1px solid" /></div>
+<script>
+    changeColor("fontcolor");
+    changeColor("backcolor");
+</script>
+<br><div>图片反ocr处理</div><a href="https://github.com/BruceWind/Image-Anti-OCR">Github</a>
     <div style="position: relative;">
         <!-- set opactity 0 -->
         <!-- support formats: jpg & png -->
@@ -34,7 +94,7 @@
         </p>
     </div>
     <canvas id="canvas" style="display:block" width="0" height="0"></canvas>
-</body>
+    </body>
 <script type="text/javascript">
 
     function $(id) {
