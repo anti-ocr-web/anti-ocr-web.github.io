@@ -94,6 +94,15 @@
         </p>
     </div>
     <canvas id="canvas" style="display:block" width="0" height="0"></canvas>
+    <tr>
+        <td><label>線條粗細:</label><input size="4" id='lineSize2' value='1' /></td>
+    </tr>
+    <tr>
+        <td><label>畫點大小:</label><input size="4" id='pointSize2' value='1' /></td>
+    </tr>
+    <tr>
+        <td><label>畫點密度:</label><input type="range" id="points2" min="0" max="20" value="1" /></td>
+    </tr>
     </body>
 <script type="text/javascript">
 
@@ -101,7 +110,9 @@
         return document.getElementById(id);
     }
     function processImg(image) {
-
+        var lineSize2 = $('lineSize2').value || 1;
+        var pointSize2 = $('pointSize2').value || 1;
+        var points2 = $('points2').value || 1;
         factor = (image.height * image.width) / 32;
 
         var canvas = $('canvas');
@@ -111,11 +122,11 @@
         context.drawImage(image, 0, 0);
 
         //draw points randomly.
-        n2 = factor / 20;
+        n2 = factor * points2 / 20;
         for (var i = 0; i < n2; i++) {
             x = random(0, canvas.width);
             y = random(0, canvas.height);
-            context.lineWidth = 2;
+            context.lineWidth = pointSize2;
             context.beginPath();
             context.moveTo(x, y);
             context.lineTo(x + 1, y + 1);
@@ -128,7 +139,7 @@
         for (var i = 0; i < factor / 150; i++) {
             x = random(0, canvas.width);
             y = random(0, canvas.height);
-            context.lineWidth = 2;
+            context.lineWidth = lineSize2;
             context.beginPath();
             context.moveTo(x, y);
             context.lineTo(x + random(- random(0, canvas.width / 2), random(0, canvas.width / 2)), y + random(- random(0, canvas.width / 2), random(0, canvas.width / 2))); //隨機畫線
